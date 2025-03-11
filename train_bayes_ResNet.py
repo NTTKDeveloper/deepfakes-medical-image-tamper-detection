@@ -80,7 +80,7 @@ csv_path = './Data_CT/labels.csv'
 df = pd.read_csv(csv_path)
 
 # Tách dữ liệu thành tập train và test (80% train, 20% test)
-df_train, df_test = train_test_split(df, test_size=0.1, random_state=42)
+df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
 print(f"Số mẫu train ban đầu: {len(df_train)}, Số mẫu test ban đầu: {len(df_test)}")
 
 def process_data(df_subset, transform):
