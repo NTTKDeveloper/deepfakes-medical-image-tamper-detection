@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import pydicom
+import joblib  # Thư viện để lưu mô hình
 from tqdm import tqdm
 
 import torch
@@ -125,6 +126,14 @@ kernel = RBF(length_scale=1.0) + WhiteKernel(noise_level=1.0)
 gpr = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=10, random_state=42)
 regressor = MultiOutputRegressor(gpr)
 regressor.fit(X_train_scaled, y_train_scaled)
+
+# Lưu mô hình và bộ chuẩn hóa vào một file duy nhất
+joblib.dump({
+    "model": regressor,
+    "scaler_X": scaler_X,
+    "scaler_y": scaler_y
+}, "gpr_pipeline.pkl")
+print("Mô hình và bộ chuẩn hóa đã được lưu vào gpr_pipeline.pkl!")
 
 # ---------------------------
 # 7. Đánh giá mô hình
